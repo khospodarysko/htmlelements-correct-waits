@@ -1,4 +1,4 @@
-package com.lohika.element;
+package com.lohika.pageobject.element;
 
 import com.lohika.util.MyLog;
 import com.lohika.util.Wait;
@@ -8,8 +8,8 @@ import org.openqa.selenium.WebElement;
 
 import ru.yandex.qatools.htmlelements.element.TypifiedElement;
 
-public class SimpleTypifiedElement extends TypifiedElement {
-    public SimpleTypifiedElement(WebElement wrappedElement) {
+public class BaseElement extends TypifiedElement {
+    public BaseElement(WebElement wrappedElement) {
         super(wrappedElement);
     }
 

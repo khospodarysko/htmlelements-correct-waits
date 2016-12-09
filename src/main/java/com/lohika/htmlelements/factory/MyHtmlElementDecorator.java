@@ -1,4 +1,4 @@
-package com.lohika.factory;
+package com.lohika.htmlelements.factory;
 
 import static ru.yandex.qatools.htmlelements.utils.HtmlElementUtils.getElementName;
 

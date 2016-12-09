@@ -1,8 +1,5 @@
-package com.lohika.factory;
+package com.lohika.htmlelements.factory;
 
-import com.lohika.util.MyLog;
-
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.SearchContext;
@@ -13,9 +10,7 @@ import org.openqa.selenium.support.ui.Clock;
 import org.openqa.selenium.support.ui.SlowLoadableComponent;
 import org.openqa.selenium.support.ui.SystemClock;
 
-import java.util.concurrent.TimeUnit;
-
-public class AjaxElementLocator extends DefaultElementLocator {
+public class MyAjaxElementLocator extends DefaultElementLocator {
     private final int timeOutInSeconds;
     private final Clock clock;
 
@@ -23,11 +18,11 @@ public class AjaxElementLocator extends DefaultElementLocator {
     private By by;
     private SearchContext searchContext;
 
-    public AjaxElementLocator(SearchContext context, int timeOutInSeconds, AbstractAnnotations annotationsHandler) {
+    public MyAjaxElementLocator(SearchContext context, int timeOutInSeconds, AbstractAnnotations annotationsHandler) {
         this(new SystemClock(), context, timeOutInSeconds, annotationsHandler);
     }
 
-    public AjaxElementLocator(Clock clock, SearchContext context, int timeOutInSeconds, AbstractAnnotations annotationsHandler) {
+    public MyAjaxElementLocator(Clock clock, SearchContext context, int timeOutInSeconds, AbstractAnnotations annotationsHandler) {
         super(context, annotationsHandler);
         this.timeOutInSeconds = timeOutInSeconds;
         this.clock = clock;
@@ -76,13 +71,9 @@ public class AjaxElementLocator extends DefaultElementLocator {
 
     private class SlowLoadingElement extends SlowLoadableComponent<SlowLoadingElement> {
         private WebElement element;
-        private final Clock clock;
-        private final long timeOutInSeconds;
 
         public SlowLoadingElement(Clock clock, int timeOutInSeconds) {
             super(clock, timeOutInSeconds);
-            this.clock = clock;
-            this.timeOutInSeconds = (long)timeOutInSeconds;
         }
 
         @Override
@@ -98,13 +89,12 @@ public class AjaxElementLocator extends DefaultElementLocator {
 
         @Override
         protected long sleepFor() {
-            return AjaxElementLocator.this.sleepFor();
+            return MyAjaxElementLocator.this.sleepFor();
         }
 
         @Override
         protected void isLoaded() throws Error {
             try {
-
                 /*
                  * Recursion happens here.
                  * For block-in-block cases assume here is the code
@@ -116,7 +106,7 @@ public class AjaxElementLocator extends DefaultElementLocator {
                  * That means it does not wait for default timeout, like 5 seconds but there is 5 seconds timeout
                  * for each link in the chain and it depends on the structure of page / block objects
                  */
-                element = AjaxElementLocator.super.findElement();
+                element = MyAjaxElementLocator.super.findElement();
                 if (!isElementUsable(element)) {
                     throw new NoSuchElementException("Element is not usable");
                 }
@@ -131,10 +121,6 @@ public class AjaxElementLocator extends DefaultElementLocator {
     }
 
     private static class NoSuchElementError extends Error {
-        private NoSuchElementError(String message) {
-            super(message);
-        }
-
         private NoSuchElementError(String message, Throwable throwable) {
             super(message, throwable);
         }

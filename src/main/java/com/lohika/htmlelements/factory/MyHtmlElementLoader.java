@@ -1,4 +1,4 @@
-package com.lohika.factory;
+package com.lohika.htmlelements.factory;
 
 import static ru.yandex.qatools.htmlelements.utils.HtmlElementUtils.newInstance;
 
@@ -13,12 +13,9 @@ import ru.yandex.qatools.htmlelements.exceptions.HtmlElementsException;
 import ru.yandex.qatools.htmlelements.loader.HtmlElementLoader;
 import ru.yandex.qatools.htmlelements.pagefactory.CustomElementLocatorFactory;
 
-/*
-рекурсія має відбуватись з тиж же LocatorFactory що і в самому початку коли ініціалізується сторінка перший раз
- */
 public class MyHtmlElementLoader extends HtmlElementLoader {
     public static void populatePageObject(Object page, SearchContext searchContext) {
-        populatePageObject(page, new DefaultTimeoutLocatorFactory(searchContext));
+        populatePageObject(page, new ZeroTimeoutLocatorFactory(searchContext));
     }
 
     public static void populatePageObject(Object page, CustomElementLocatorFactory locatorFactory) {
