@@ -1,4 +1,6 @@
-package com.lohika;
+package com.lohika.fixed;
+
+import com.lohika.BaseTest;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;

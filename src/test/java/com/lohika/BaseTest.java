@@ -16,6 +16,7 @@ import org.testng.annotations.BeforeMethod;
 public class BaseTest {
     public WebDriver driver;
     public GooglePage googlePage;
+    public com.lohika.pageobject.google.original.GooglePage originalGooglePage;
 
     @BeforeClass(alwaysRun = true)
     public void setUp() {
@@ -26,6 +27,7 @@ public class BaseTest {
         driver = new ChromeDriver();
 
         googlePage = new GooglePage(driver);
+        originalGooglePage = new com.lohika.pageobject.google.original.GooglePage(driver);
     }
 
     @BeforeMethod

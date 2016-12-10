@@ -1,14 +1,16 @@
-package com.lohika;
+package com.lohika.fixed;
+
+import com.lohika.BaseTest;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class ZeroTimeoutTest extends BaseTest {
+public class FiveTimeoutTest extends BaseTest {
     @BeforeClass
     public void setUpTimeout() {
-        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     @Test
