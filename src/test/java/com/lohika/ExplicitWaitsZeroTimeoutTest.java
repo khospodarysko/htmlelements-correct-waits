@@ -1,47 +1,24 @@
 package com.lohika;
 
-import com.lohika.util.MyLog;
-
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.util.concurrent.TimeUnit;
+
 public class ExplicitWaitsZeroTimeoutTest extends BaseTest {
-    @Test
-    public void testTimeoutLess() {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        long start = System.currentTimeMillis();
-        try {
-            wait.until(ExpectedConditions.visibilityOf(googlePage.nonExistentSearchInput));
-        } catch (TimeoutException e) {
-            // ignore
-        }
-        MyLog.log((System.currentTimeMillis() - start));
+    @BeforeClass
+    public void setUpTimeout() {
+        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     }
 
     @Test
-    public void testTimeoutGreater() {
-        WebDriverWait wait = new WebDriverWait(driver, 15);
-        long start = System.currentTimeMillis();
-        try {
-            wait.until(ExpectedConditions.visibilityOf(googlePage.nonExistentSearchInput));
-        } catch (TimeoutException e) {
-            // ignore
-        }
-        MyLog.log((System.currentTimeMillis() - start));
+    public void testElementTimeout() {
+        printWaitTime(googlePage.nonExistentSearchInput, 5);
     }
 
     @Test
-    public void testTimeoutEqual() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        long start = System.currentTimeMillis();
-        try {
-            wait.until(ExpectedConditions.visibilityOf(googlePage.nonExistentSearchInput));
-        } catch (TimeoutException e) {
-            // ignore
-        }
-        MyLog.log((System.currentTimeMillis() - start));
+    public void testBlockElementTimeout() {
+        printWaitTime(googlePage.noSearchForm.noSearchInput, 5);
     }
 }
 

@@ -17,6 +17,8 @@ public class GooglePage extends BasePage {
     @FindBy(name = "qqq")
     public BaseElement nonExistentSearchInput;
 
+    public NoSearchForm noSearchForm;
+
     public GooglePage(WebDriver driver) {
         super(driver);
     }

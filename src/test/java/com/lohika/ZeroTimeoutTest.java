@@ -1,32 +1,29 @@
 package com.lohika;
 
-import com.lohika.util.MyLog;
-
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.util.concurrent.TimeUnit;
+
 public class ZeroTimeoutTest extends BaseTest {
+    @BeforeClass
+    public void setUpTimeout() {
+        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+    }
+
     @Test
     public void testPageElement() {
-        long start = System.currentTimeMillis();
-        try {
-            googlePage.searchInput.getTagName();
-        } catch (Exception ex) {
-            // ignore
-        } finally {
-            MyLog.log((System.currentTimeMillis() - start));
-        }
+        printAccessTime(googlePage.searchInput);
     }
 
     @Test
     public void testNonExistentPageElement() {
-        long start = System.currentTimeMillis();
-        try {
-            googlePage.nonExistentSearchInput.getTagName();
-        } catch (Exception ex) {
-            // ignore
-        } finally {
-            MyLog.log((System.currentTimeMillis() - start));
-        }
+        printAccessTime(googlePage.nonExistentSearchInput);
+    }
+
+    @Test
+    public void testNonExistentBlockElement() {
+        printAccessTime(googlePage.noSearchForm.noSearchInput);
     }
 }
 

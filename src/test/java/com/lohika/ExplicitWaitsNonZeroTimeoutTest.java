@@ -1,23 +1,19 @@
 package com.lohika;
 
-import com.lohika.util.MyLog;
-
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.util.concurrent.TimeUnit;
+
 public class ExplicitWaitsNonZeroTimeoutTest extends BaseTest {
+    @BeforeClass
+    public void setUpTimeout() {
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
+
     @Test
     public void testTimeoutLess() {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        long start = System.currentTimeMillis();
-        try {
-            wait.until(ExpectedConditions.visibilityOf(googlePage.nonExistentSearchInput));
-        } catch (TimeoutException e) {
-            // ignore
-        }
-        MyLog.log((System.currentTimeMillis() - start));
+        printWaitTime(googlePage.nonExistentSearchInput, 5);
     }
 
     /**
@@ -29,26 +25,22 @@ public class ExplicitWaitsNonZeroTimeoutTest extends BaseTest {
      */
     @Test
     public void testTimeoutGreater() {
-        WebDriverWait wait = new WebDriverWait(driver, 15);
-        long start = System.currentTimeMillis();
-        try {
-            wait.until(ExpectedConditions.visibilityOf(googlePage.nonExistentSearchInput));
-        } catch (TimeoutException e) {
-            // ignore
-        }
-        MyLog.log((System.currentTimeMillis() - start));
+        printWaitTime(googlePage.nonExistentSearchInput, 15);
     }
 
     @Test
     public void testTimeoutEqual() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        long start = System.currentTimeMillis();
-        try {
-            wait.until(ExpectedConditions.visibilityOf(googlePage.nonExistentSearchInput));
-        } catch (TimeoutException e) {
-            // ignore
-        }
-        MyLog.log((System.currentTimeMillis() - start));
+        printWaitTime(googlePage.nonExistentSearchInput, 10);
+    }
+
+    @Test
+    public void testBlockElementTimeoutGreater() {
+        printWaitTime(googlePage.noSearchForm.noSearchInput, 15);
+    }
+
+    @Test
+    public void testBlockElementTimeoutLess() {
+        printWaitTime(googlePage.noSearchForm.noSearchInput, 5);
     }
 }
 
